@@ -20,12 +20,12 @@ mydb = client['dev1']
 event_collect = mydb['event']
 
 if __name__ == '__main__':
-    a = next(event_collect.find({'_id': '0'}))
-    a1 = int(a['last-collect'])
-    b = event_collect.find({'_id': {'$gt': '{}'.format(a1)}})
-    for i in b:
-        producer.send('test-micro', i, partition=0)
-        print(i)
+    status_document = next(event_collect.find({'_id': '0'}))
+    last_collect = int(status_document['last-collect'])
+    event_list = event_collect.find({'_id': {'$gt': '{}'.format(last_collect)}})
+    for event in event_list:
+        producer.send('test-micro', event, partition=0)
+        print(event)
         time.sleep(0.3)
 
 

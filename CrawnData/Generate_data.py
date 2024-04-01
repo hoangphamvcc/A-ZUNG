@@ -39,16 +39,16 @@ event_collect.insert_one(First)"""
     event_collect.insert_one(a)
     print(a)"""
 
-a = next(event_collect.find({'_id': '0'}))
-a1 = a['last-even']
-print(type(a1))
-b = random.randrange(1, 5)
-a2 = int(a1)
+status_document = next(event_collect.find({'_id': '0'}))
+last_event = status_document['last-even']
+print(type(last_event))
+rand = random.randrange(1, 5)
+curr_event = int(last_event)
 
-for i in range(0, b):
-    a2 = a2 + 1
+for i in range(0, rand):
+    a2 = curr_event + 1
     event_collect.insert_one((event_gen(a2)))
-update_even(a2)
+update_even(curr_event)
 
 for x in event_collect.find():
     print(x)
