@@ -46,8 +46,8 @@ rand = random.randrange(1, 5)
 curr_event = int(last_event)
 
 for i in range(0, rand):
-    a2 = curr_event + 1
-    event_collect.insert_one((event_gen(a2)))
+    curr_event = curr_event + 1
+    event_collect.insert_one((event_gen(curr_event)))
 update_even(curr_event)
 
 for x in event_collect.find():
