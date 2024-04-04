@@ -25,15 +25,16 @@ class MongoNewsRepository(NewsRepository):
         return next(result, None) is not None
 
     def save_news(self, news: FormattedNews):
-        # Xy ly duplicate constraints
-        self.__mongo.news.insert_one({
-            '_id': news.news_id,
-            'title': news.title,
-            'link': news.link,
-            'date': news.date,
-            'rss_id': news.rss_id,
-            'time_stamp': news.time_stamp
-        })
+        # Xy ly duplicate constraints     # done
+        if not self.is_id_existed(news.news_id):
+            self.__mongo.news.insert_one({
+                '_id': news.news_id,
+                'title': news.title,
+                'link': news.link,
+                'date': news.date,
+                'rss_id': news.rss_id,
+                'time_stamp': news.time_stamp
+            })
 
 
 class MemoryNewsRepository(NewsRepository):
