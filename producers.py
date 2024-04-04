@@ -30,3 +30,4 @@ def do_procerduce() -> None:
 if __name__ == '__main__':
     while True:
         do_procerduce()
+        producer.send('test123', {'test':'ok'})
