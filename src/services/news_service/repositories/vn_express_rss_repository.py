@@ -17,5 +17,6 @@ class VNExpressRecentRSSRepository(VNExpressRepository):
         soup = BeautifulSoup(data.content, 'xml')
         rss = [VNExpressRSS(item) for item in soup.find_all('item')]
         rss.reverse()
+        print('get_rss')
 
         return rss
