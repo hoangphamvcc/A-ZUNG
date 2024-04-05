@@ -30,9 +30,10 @@ class MongoNewsRepository(NewsRepository):
             '_id': news.news_id,
             'title': news.title,
             'link': news.link,
-            'date': news.date,
+            'public_at': news.date,
             'rss_id': news.rss_id,
-            'time_stamp': news.time_stamp
+            'time_stamp': news.time_stamp,
+            'is_published': False
         })
 
 
