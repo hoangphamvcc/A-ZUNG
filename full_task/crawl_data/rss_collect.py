@@ -32,7 +32,6 @@ class RssColl(object):
             time_dataform = datetime.strptime(time_data, date_format)
             timestamp = int(round(time_dataform.timestamp()))
 
-
             try:
                 self.file.append({'Title': f'{item.title.text}',
                                   'Link': f'{item.link.text}',
@@ -48,7 +47,6 @@ class RssColl(object):
             if i == len(self.items) - 1 and timestamp > self.last_num:
                 self.time = timestamp
                 f = open('last_num.txt', 'w').write('{}'.format(self.time))"""
-
 
 a = RssColl()
 a1 = a.time_index()

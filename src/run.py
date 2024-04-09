@@ -4,3 +4,7 @@ if __name__ == '__main__':
     a = input('Enter a number: ')
     if int(a) == 1:
         run_cronjob()
+
+    if int(a) == 2:
+        # chay service subscription
+        print('2')
