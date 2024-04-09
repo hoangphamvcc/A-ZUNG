@@ -11,7 +11,7 @@ from src.services.news_service.repositories import (VNExpressRecentRSSRepository
 
 def request_recent_vn_express_news():
     # Your code here
-    handler = VNExpressRSSHandler(VNExpressRecentRSSRepository(), MemoryNewsRepository())
+    handler = VNExpressRSSHandler(VNExpressRecentRSSRepository(), MongoNewsRepository())
     handler.handle()
 
 
