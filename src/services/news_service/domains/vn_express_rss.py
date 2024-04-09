@@ -1,4 +1,5 @@
 import dataclasses
+from datetime import datetime
 
 
 @dataclasses.dataclass
@@ -6,13 +7,13 @@ class FormattedNews:
     news_id: str
     title: str
     link: str
-    date: str
+    public_at: str
     rss_id: str
     time_stamp: str
+    is_published: bool
 
-    def create_new_id(self):
-        # Create common news id for all rss types of news
-        pass
+    def to_datetime(self) -> datetime:
+        return datetime.strptime(self.public_at, '%a, %d %b %Y %H:%M:%S %z')
 
 
 class VNExpressRSS:
@@ -29,7 +30,8 @@ class VNExpressRSS:
             news_id=link_origin.split('.html')[0].split('-')[-1],
             title=self.__item.title.text,
             link=link_origin,
-            date=self.__item.pubDate.text,
+            public_at=self.__item.pubDate.text,
             rss_id=link_origin.split('.html')[0].split('-')[-1],
-            time_stamp=self.__item.pubDate.text
+            time_stamp=self.__item.pubDate.text,
+            is_published=False
         )

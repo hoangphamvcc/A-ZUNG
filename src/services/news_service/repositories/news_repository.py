@@ -1,4 +1,4 @@
-from src.services.news_service.domains import FormattedNews
+from src.services.news_service.domains import FormattedNews, News
 from src.services.news_service.handlers import NewsRepository
 import pymongo
 from src.config import MONGO_URI, MONGO_DB_NAME, MONGO_NEWS_COLLECTION
@@ -26,15 +26,7 @@ class MongoNewsRepository(NewsRepository):
 
     def save_news(self, news: FormattedNews):
         if not self.is_id_existed(news.news_id):
-            self.__mongo.news.insert_one({
-                '_id': news.news_id,
-                'title': news.title,
-                'link': news.link,
-                'public_at': news.date,
-                'rss_id': news.rss_id,
-                'time_stamp': news.time_stamp,
-                'is_published': False
-            })
+            self.__mongo.news.insert_one(News.create(news).to_dict())
 
 
 class MemoryNewsRepository(NewsRepository):

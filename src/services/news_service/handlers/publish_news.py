@@ -9,7 +9,7 @@ class HourlyNewsRepository:
     Query news within specific time and save them
     """
 
-    def get_news(self, current_time: datetime) -> List[News]:
+    def get_unpulished_news(self, current_time: datetime) -> List[News]:
         pass
 
     def save_news(self, news: List[News]) -> bool:
@@ -37,7 +37,7 @@ class HourlyNewsPublishHandler:
         :param current_time:
         :return:
         """
-        news = self.__news_repository.get_news(current_time)
+        news = self.__news_repository.get_unpulished_news(current_time)
 
         to_be_publishing_news = []
         for item in news:
