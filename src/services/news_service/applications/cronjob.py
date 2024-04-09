@@ -5,7 +5,7 @@ import schedule
 
 from src.services.news_service.handlers import VNExpressRSSHandler, HourlyNewsPublishHandler
 from src.services.news_service.repositories import (VNExpressRecentRSSRepository, MemoryNewsRepository,
-                                                    MongoHourlyNewsRepository,
+                                                    MongoHourlyNewsRepository, MongoNewsRepository,
                                                     KafkaNewsPublishSender)
 
 
