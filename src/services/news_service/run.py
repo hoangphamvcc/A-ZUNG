@@ -2,6 +2,6 @@ from applications.cronjob import run_cronjob, request_recent_vn_express_news, se
 import src.config
 
 if __name__ == '__main__':
-    # run_cronjob()
+    run_cronjob()
     # request_recent_vn_express_news()
-    send_news_hourly()
+    # send_news_hourly()

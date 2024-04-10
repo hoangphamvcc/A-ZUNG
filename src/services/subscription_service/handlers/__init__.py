@@ -1,1 +1,1 @@
-from .publishing_news_handler import PublishingNewsHandler, PublishingNewsRepository, PublishClient
+from .publishing_news_handler import PublishingNewsHandler, PublishingNewsRepository, PublishClient, PublishingNewsCommand

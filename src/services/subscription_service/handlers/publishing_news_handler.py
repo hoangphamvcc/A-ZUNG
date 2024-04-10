@@ -9,8 +9,9 @@ from src.services.subscription_service.domains import ReceivedNews, User
 class PublishingNewsCommand:
     url: str
     header: str
-    news_id: str
+    # news_id: str
     published_at: datetime
+    issued_at: datetime
 
 
 class PublishingNewsRepository:
@@ -40,8 +41,12 @@ class PublishingNewsHandler:
         received_news = []
         receiving_time = datetime.now()
         for user in current_subscribe_users:
+            user.payload = {"header": command.header, "url": command.url}
             current_received_news = self.__repository.get_current_hourly_received_news(user.user_id, receiving_time)
-            received_news.append(user.request_send_news(command.news_id, datetime.now(), current_received_news))
+            news = user.request_send_news(received_at=datetime.now(), current_received_news=current_received_news)
+            if not news:
+                continue
+            received_news.append(news)
 
         self.__repository.save(received_news)
         for user in current_subscribe_users:

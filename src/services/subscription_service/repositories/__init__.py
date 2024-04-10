@@ -1,1 +1,1 @@
-from .publishing_news_repository import PublishingNewsRepository, TelegramPublishClient
+from .publishing_news_repository import PublishingNewsRepository, TelegramPublishClient, MongoPublishingNewsRepository, MongoDB, PublishClient

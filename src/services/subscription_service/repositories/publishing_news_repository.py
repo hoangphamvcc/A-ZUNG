@@ -1,3 +1,5 @@
+import json
+import os
 from datetime import datetime
 from typing import List
 
@@ -7,6 +9,10 @@ from src.config import MONGO_URI, MONGO_DB_NAME, MONGO_USER_COLLECTION, MONGO_RE
 from src.services.subscription_service.domains import User, ReceivedNews
 from src.services.subscription_service.handlers import PublishingNewsRepository, PublishClient
 import pymongo
+
+NEWS_TOPIC = os.getenv("NEWS_TOPIC")
+NEWS_BOOTSTRAP_SERVERS = os.getenv("NEWS_BOOTSTRAP_SERVERS")
+
 
 
 class MongoDB:
@@ -37,15 +43,15 @@ class MongoPublishingNewsRepository(PublishingNewsRepository):
     def save(self, news: List[ReceivedNews]):
         for new in news:
             self.__mongo_client.receive_news.insert_one({
-                'news_id': new.news_id,
+                # 'news_id': new.news_id,
                 'user_id': new.user_id,
-                'received_at': new.received_at
+                'received_at': new.received_at,
             })
 
     def get_current_hourly_received_news(self, user_id: str, received_at: datetime) -> int:
         start_hour = received_at.replace(minute=0, second=0, microsecond=0)
         end_hour = start_hour.replace(hour=start_hour.hour + 1)
-        return self.__mongo_client.receive_news.count({
+        return self.__mongo_client.receive_news.count_documents({
             'user_id': user_id,
             'received_at': {
                 '$gte': start_hour,
@@ -59,10 +65,9 @@ class TelegramPublishClient(PublishClient):
     def publish(self, news: List[ReceivedNews]):
         # send news data with telegram get api
         for item in news:
-            url = "https://api.telegram.org/bot{token}/sendMessage".format(token=item.channel_id)
-            data = {
-                # Format them
-                'chat_id': item.user_id,
-                'text': f"New news: {item.news_id} at {item.received_at}"
-            }
-            requests.post(url, data=data)
+            url = "https://api.telegram.org/bot7093067808:AAEfPz21IUweO0uH2Afu1y_V5Mrc_8cdohs/sendMessage?chat_id={}&text={}".format(item.channel_id, item.payload)
+            # data = {
+            #     'text': f"New news: {item.news_id} at {item.received_at}"
+            # }
+            print(url)
+            requests.get(url)
