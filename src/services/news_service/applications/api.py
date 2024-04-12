@@ -24,5 +24,4 @@ def api_send_news_manually():
 def flask():
     pass
 
-
 flask()
